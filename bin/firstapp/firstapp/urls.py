@@ -16,10 +16,10 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
-import article
- 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^basic/', include('article.urls')),
+    url(r'^auth/', include('loginsys.urls')),
     url(r'^', include('article.urls')),
+
 ]
