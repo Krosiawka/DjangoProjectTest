@@ -56,11 +56,13 @@ def addlike(request, article_id):
     return redirect('/')
     
 def addcomment(request, article_id):
-    if request.POST:
-        form = CommentForm(request.POST) #данные из браузера отправились в commentform и присвоились в form
+    if request.POST and ('pause' not in request.session):
+        form = CommentForm(request.POST) #из брауз.отправились в commentform и присвоились в form
         if form.is_valid():
-            comment = form.save(commit=False) #по умолчанию form.save сохранит данные в таблицу, commit=False для того что бы не сохранял их пока не получить comments_article
+            comment = form.save(commit=False) #commit=False для того что бы form.save не сохранял данные в базу пока не получить comments_article
             comment.comments_article = Article.objects.get(id=article_id) #
             form.save() #
+            request.session.set_expiry(60) #создает объект сессии который живет в течении 60 сек
+            request.session['pause'] = True
     return redirect('/articles/get/%s/' % article_id)
 
