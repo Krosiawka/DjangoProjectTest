@@ -6,12 +6,12 @@
            <hr>
            <p>Понравилось: {{ article.article_likes }}</p>
            <hr>
-           <div class="large-offset-1 large-8 columns">
+           <div class="large-offset-1 large-10 columns">
                 p>Комментарии:</p>
                 {% for comment in comments %}
                     <p>{{ comment.comments_text }}</p>
                 {% endfor %}
-                <form action="/articles/addcoment/{{ article.id }}" method="POST">
+                <form action="/articles/addcomment/{{ article.id }}/" method="POST">
                     {% csrf_token %}
                     {{ form }}
                     <input type="submit" class="button" value="Добавить комментарий">
