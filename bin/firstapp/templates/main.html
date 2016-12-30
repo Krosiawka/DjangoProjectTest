@@ -7,6 +7,9 @@
     </head>
     <body>
         <div class="top-bar">
+            <section class="top-bar-left">
+                <h4><a href="/">Мой блог</a></h4>
+            </section>
             <section class="top-bar-right">
                 <ul class="menu">
                     {% if username %}
@@ -17,7 +20,7 @@
                 </ul>
             </section>
         </div>
-        <h1><a href="/">Мой блог</a></h1>
+        
         <div class="row">
             {% block article %}{% endblock %}
             {% block login %}{% endblock %}
