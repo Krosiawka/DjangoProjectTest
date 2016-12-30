@@ -10,11 +10,12 @@ from django.db import models
 class Article(models.Model):
     class Meta():
         db_table = 'article'
+        verbose_name = 'Статью'
 
-    article_title = models.CharField(max_length=200)
-    article_text = models.TextField()
-    article_date = models.DateTimeField()
-    article_likes = models.IntegerField(default=0) #(blank=True, null=True)
+    article_title = models.CharField(max_length=200, verbose_name='Заголовок')
+    article_text = models.TextField(verbose_name='Текст статьи')
+    article_date = models.DateTimeField(verbose_name="Дата публикации")
+    article_likes = models.IntegerField(default=0, verbose_name='Колличество лайков') #(blank=True, null=True)
 
 
 class Comments(models.Model):
