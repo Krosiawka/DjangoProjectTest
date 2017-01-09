@@ -1,22 +1,24 @@
-{% extends 'main.html'%}
+{% extends 'main.html' %}
 {% load staticfiles %}
 
 {% block article %}
+<h2>Статьи</h2> 
 <div class="large-8 collumns"
+        
         {% for article in articles %}      
-           <h6>Дата публикации: {{ article.article_date }}</h6>
-           <h4><a href='/articles/get/{{ article.id }}/'>{{ article.article_title }}</a></h4>
+           
+           <p style="font-size: 14px;"><a style="font-size: 30px; color: black;" href='/articles/get/{{ article.id }}/'>{{ article.article_title }}</a> - дата публикации: {{ article.article_date }}</p>
            <p>{{ article.article_text }}</p>
            <p><a href="/articles/addlike/{{ article.id }}/{{ articles.number }}/"><img src="{% static "images.jpeg" %}" width="20px"></a>{{ article.article_likes }}</p>
            <hr>
         {% endfor %}
 </div>
         <div class="large-8 large-offset-6 columns"-->
-                <ul class="pagination">
+                <ul class="pagination" role="navigation" aria-label="Pagination">
                         {% if articles.has_previous %}
                                 <li class="pagination-previous"><a href="/page/{{ articles.previous_page_number }}/"></a></li>
                         {% else %}
-                                <li class="pagination-previous"><a href=""></a></li>
+                                <!--<li class="pagination-previous disabled"><a href=""></a></li>-->
                         {% endif %}
                         {% for page in articles.paginator.page_range %}
                                 {% if page == articles.number %}
@@ -25,10 +27,10 @@
                                         <li><a href="/page/{{ page }}/">{{ page }}</a></li>
                                 {% endif %}
                         {% endfor %}
-                        {% if article.has_next %}
+                        {% if articles.has_next %}
                                 <li class="pagination-next"><a href="/page/{{ articles.next_page_number }}/"></a></li>
                         {% else %}
-                                <li class="pagination-next"><a href=""></a></li>
+                                <!--<li class="pagination-next disabled"><a href=""></a></li>-->
                         {% endif %}
                 </ul>
         </div>

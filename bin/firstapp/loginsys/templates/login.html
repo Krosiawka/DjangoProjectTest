@@ -1,18 +1,23 @@
 {% extends 'main.html' %}
 
 {% block login %}
-    <div class="large-offset-3 columns">
+    <div class="large-5 large-offset-4 columns"> <!--style="width: 60%;">-->
         <form action="/auth/login/" method="POST">
             {% csrf_token %}
             <label for="username">Имя пользователя</label>
             <input type="text" name="username" id="username">
             <label for="password">Пароль</label>
-            <input type="password" name="password" id="password">
+            <input type="password" name="password" id="password">   
             {% if login_error %}
                 <label class="error">{{login_error}}</label>
             {% endif %}
-            <input class="button" type="submit" value="Войти">
-            <div class="label round secondary"><a href="/auth/register/">Регистрация</a></div> 
+            <!--<div style="position: relative;">
+                <input style="position: absolute; right: 12%;" class="button" type="submit" value="Войти">
+                <a style="position: absolute; right: 0%;" class="button" href="/auth/register/">Регистрация</a>-->
+            <div align="right">
+                <input class="button" type="submit" value="Войти">
+                <a class="button" href="/auth/register/">Регистрация</a> 
+            </div>
         </form>
     </div>
 {% endblock %}

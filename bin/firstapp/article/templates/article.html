@@ -1,15 +1,15 @@
 {% extends 'main.html'%}
 {% block article %}
-           <h4>Дата публикации: {{ article.article_date }}</h4>
-           <h2>{{ article.article_title }}</h2>
+ 
+           <p><span style="font-size: 30px;">{{ article.article_title }}</span><span style="font-size: 14px;"> - дата публикации: {{ article.article_date }}</span</p>
            <p>{{ article.article_text }}</p>
            <hr>
            <p>Понравилось: {{ article.article_likes }}</p>
            <hr>
-           <div class="large-offset-1 large-10 columns">
+           <div class="large-offset-4 large-10 columns">
                 <p>Комментарии:</p>
                 {% for comment in comments %}
-                    <p>{{ comment.comments_text }}</p>
+                    <p>{{ comment.comments_text }} <em>- {{ comment.comments_user }}</em></p>
                 {% endfor %}
                 {% if username %}
                     <form action="/articles/addcomment/{{ article.id }}/" method="POST">

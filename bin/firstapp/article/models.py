@@ -23,4 +23,5 @@ class Comments(models.Model):
         db_table = 'comments'
 
     comments_text = models.TextField(verbose_name='Текст коментария')
+    comments_user = models.CharField(max_length=50, verbose_name='Автор комментария', default = '')
     comments_article = models.ForeignKey(Article)
