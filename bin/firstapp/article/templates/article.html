@@ -1,22 +1,46 @@
 {% extends 'main.html'%}
 {% block article %}
- 
-           <p><span style="font-size: 30px;">{{ article.article_title }}</span><span style="font-size: 14px;"> - дата публикации: {{ article.article_date }}</span</p>
-           <p>{{ article.article_text }}</p>
-           <hr>
-           <p>Понравилось: {{ article.article_likes }}</p>
-           <hr>
-           <div class="large-offset-4 large-10 columns">
-                <p>Комментарии:</p>
+            <div class="mdl-grid">
+                <div class="mdl-cell mdl-cell--1-col"></div><p><span style="font-size: 30px;">{{ article.article_title }}</span><span style="font-size: 14px;"> - дата публикации: {{ article.article_date }}</span</p>
+            </div>
+            <div class="mdl-grid">
+                <div class="mdl-cell mdl-cell--1-col"></div><p>{{ article.article_text }}</p>
+            </div>
+            <hr>
+            <div class="mdl-grid"> 
+                <div class="mdl-cell mdl-cell--1-col"></div><p>Понравилось: {{ article.article_likes }}</p>
+            </div>
+            <hr>
+            <div class="mdl-grid"> 
+                <div class="mdl-cell mdl-cell--1-col"></div><p>Комментарии:</p>
+            </div>
                 {% for comment in comments %}
-                    <p>{{ comment.comments_text }} <em>- {{ comment.comments_user }}</em></p>
+                    <div class="mdl-grid">
+                        <div class="mdl-cell mdl-cell--2-col"></div><p>{{ comment.comments_text }} <em> - {{ comment.comments_user }}</em></p>
+                    </div>
                 {% endfor %}
                 {% if username %}
                     <form action="/articles/addcomment/{{ article.id }}/" method="POST">
                         {% csrf_token %}
-                        {{ form }}
-                        <input type="submit" class="button" value="Добавить комментарий">
+  <!--
+  <div class="mdl-textfield mdl-js-textfield">
+    <textarea class="mdl-textfield__input" type="text" rows= "3" id="sample5" ></textarea>
+    <label class="mdl-textfield__label" for="sample5">Text lines...</label>
+  </div>
+  -->                    
+                        <div class="mdl-grid">
+                            <div class="mdl-cell mdl-cell--2-col"></div>
+                            <div class="mdl-textfield mdl-js-textfield">
+                                
+                                {% for field in form %}
+                                <label class="mdl-textfield__label" for="sample5">{{ field.label }}</label>
+                                 {{ field }}
+                                {% endfor %}
+                            </div>
+                        </div>
+                            <div class="mdl-grid"><div class="mdl-cell mdl-cell--2-col"></div><button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" type="submit">Добавить комментарий</button>
+                        </div>
                     </form>
                 {% endif %}
-           </div>
+           
 {% endblock %}

@@ -2,39 +2,55 @@
 {% load staticfiles %}
 
 {% block article %}
-<h2>Статьи</h2> 
-<div class="large-8 collumns"
-        
-        {% for article in articles %}      
-           
-           <p style="font-size: 14px;"><a style="font-size: 30px; color: black;" href='/articles/get/{{ article.id }}/'>{{ article.article_title }}</a> - дата публикации: {{ article.article_date }}</p>
-           <p>{{ article.article_text }}</p>
-           <p><a href="/articles/addlike/{{ article.id }}/{{ articles.number }}/"><img src="{% static "images.jpeg" %}" width="20px"></a>{{ article.article_likes }}</p>
-           <hr>
+<h3 align="center">Статьи</h3>
+        {% for article in articles %}  
+                <div class="mdl-grid">
+                        <div class="mdl-cell mdl-cell--1-col"></div><p style="font-size: 14px;"><a style="font-size: 30px; color: black;" href='/articles/get/{{ article.id }}/'>{{ article.article_title }}</a> - дата публикации: {{ article.article_date }}</p>
+                </div>
+                <div class="mdl-grid">
+                        <div class="mdl-cell mdl-cell--1-col"></div><p>{{ article.article_text }}</p>
+                </div>
+                <div class="mdl-grid">
+                        <div class="mdl-cell mdl-cell--1-col"></div><p><a href="/articles/addlike/{{ article.id }}/{{ articles.number }}/" class="mdl-badge" data-badge="{{ article.article_likes }}"><img src="{% static "images.jpeg" %}" width="20px"></a></p>
+                </div>        
+                <hr>
         {% endfor %}
-</div>
-        <div class="large-8 large-offset-6 columns"-->
-                <ul class="pagination" role="navigation" aria-label="Pagination">
-                        {% if articles.has_previous %}
-                                <li class="pagination-previous"><a href="/page/{{ articles.previous_page_number }}/"></a></li>
+
+<!--start old pagination -->
+        <div align="center">
+                {% if articles.has_previous %}
+                        <a style="width: 15px;" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" href="/page/{{ articles.previous_page_number }}/"><span> < </span></a>
+                {% else %}
+                        <a class="mdl-button mdl-js-button mdl-button--raised" disabled href=""><</a>
+                {% endif %}
+                {% for page in articles.paginator.page_range %}
+                        {% if page == articles.number %}
+                                <a class="mdl-button mdl-js-button mdl-button--raised" disabled href="/page/{{ page }}/">{{ page }}</a>
                         {% else %}
-                                <!--<li class="pagination-previous disabled"><a href=""></a></li>-->
+                                <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" href="/page/{{ page }}/">{{ page }}</a>
                         {% endif %}
-                        {% for page in articles.paginator.page_range %}
-                                {% if page == articles.number %}
-                                        <li class="current"><a href="/page/{{ page }}/">{{ page }}</a></li>
-                                {% else %}
-                                        <li><a href="/page/{{ page }}/">{{ page }}</a></li>
-                                {% endif %}
-                        {% endfor %}
+                {% endfor %}
                         {% if articles.has_next %}
-                                <li class="pagination-next"><a href="/page/{{ articles.next_page_number }}/"></a></li>
+                                <a class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" href="/page/{{ articles.next_page_number }}/">></a>
                         {% else %}
-                                <!--<li class="pagination-next disabled"><a href=""></a></li>-->
+                                <a class="mdl-button mdl-js-button mdl-button--raised" disabled href="">></a>
                         {% endif %}
-                </ul>
-        </div>
        
+        </div>
+
+<!--
+                <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header
+            mdl-layout--fixed-tabs">
+  <header class="mdl-layout__header">
+            <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+                <a href="#fixed-tab-1" class="mdl-layout__tab is-active">Tab 1</a>
+                <a href="#fixed-tab-2" class="mdl-layout__tab">Tab 2</a>
+                <a href="#fixed-tab-3" class="mdl-layout__tab">Tab 3</a>
+                <a href="#fixed-tab-4" class="mdl-layout__tab">Tab 4</a>
+                <a href="#fixed-tab-5" class="mdl-layout__tab">Tab 5</a>        
+            </div>
+  </header>
 </div>
+-->
 {% endblock %}
  
